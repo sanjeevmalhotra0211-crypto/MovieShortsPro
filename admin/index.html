@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>MovieShorts Pro | Admin</title>
+<style>
+:root{color-scheme:dark;--bg:#080d1d;--panel:#121d35;--line:#293d63;--muted:#aab8d3;--cyan:#39c6f4;--purple:#852bff}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at 80% 0,#1b2450,transparent 35%),var(--bg);color:#f5f7ff;font:16px system-ui}
+header{padding:22px 5%;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:center}
+.brand{font-size:24px;font-weight:850}.brand span{color:var(--cyan)}main{max-width:1100px;margin:36px auto;padding:0 20px}
+h1{font-size:32px;margin:0 0 8px}.muted{color:var(--muted)}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px;margin:24px 0}
+.card{background:linear-gradient(145deg,#14213c,#10182d);border:1px solid var(--line);border-radius:18px;padding:22px}
+.value{font-size:28px;font-weight:800;margin-top:8px}.tag{color:var(--cyan);font-weight:700;letter-spacing:1.5px;font-size:12px}
+a,button{color:white;background:linear-gradient(100deg,var(--purple),#176bee);border:0;border-radius:12px;padding:12px 16px;text-decoration:none;font-weight:700;display:inline-block}
+footer{color:var(--muted);text-align:center;padding:35px}
+</style></head>
+<body>
+<header><div class="brand">▶ MovieShorts <span>Pro</span></div><div class="muted">Administration portal · Preview only</div></header>
+<main>
+<div class="tag">CONTROL CENTER</div><h1>Admin Dashboard</h1>
+<p class="muted">Manage the MovieShorts Pro platform, users, projects, processing and app releases.</p>
+<div class="grid">
+<div class="card"><div class="muted">Registered users</div><div class="value">—</div><p class="muted">Connect the production API to load live data.</p></div>
+<div class="card"><div class="muted">Movie projects</div><div class="value">—</div><p class="muted">Per-user project management.</p></div>
+<div class="card"><div class="muted">Processing jobs</div><div class="value">—</div><p class="muted">Queue health and error monitoring.</p></div>
+<div class="card"><div class="muted">Current app version</div><div class="value">0.1.0</div><p class="muted">Starter build metadata.</p></div>
+</div>
+<div class="card"><div class="tag">NEXT SETUP REQUIRED</div><h2>Secure production administration</h2>
+<p class="muted">This page is a visual starter only. It has no login or live controls and must not be exposed as a production admin panel. Before deployment, connect server-side admin authentication, role-based permissions, MFA, audit logs and protected API endpoints.</p>
+</div>
+</main><footer>MovieShorts Pro · Official administration interface</footer>
+</body></html>

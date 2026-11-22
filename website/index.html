@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>MovieShorts Pro — Movie to Shorts Studio</title>
+<meta name="description" content="Turn full-length movies into sequential 90-second video clips on your Android device.">
+<style>
+:root{color-scheme:dark;--bg:#070b19;--panel:#111c34;--line:#263d66;--muted:#aab8d3;--cyan:#43c8f5;--purple:#8a2cff;--blue:#176bed}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at 75% 0,#1a2853 0,transparent 45%),var(--bg);color:#f5f7ff;font:16px/1.55 system-ui, sans-serif}
+header{max-width:1180px;margin:auto;padding:22px 24px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid #1b2946}
+.brand{font-size:24px;font-weight:850}.brand b{color:var(--cyan)}a{color:inherit;text-decoration:none}.nav{display:flex;gap:22px;color:var(--muted);font-size:14px}
+main{max-width:1180px;margin:auto;padding:58px 24px}.hero{padding:44px;border:1px solid var(--line);border-radius:28px;background:linear-gradient(120deg,#132447,#301655);box-shadow:0 20px 80px #0005}
+.kicker{color:var(--cyan);font-weight:800;letter-spacing:2px;font-size:12px}.hero h1{font-size:clamp(38px,6vw,68px);line-height:1.05;margin:18px 0}.gradient{background:linear-gradient(90deg,#4bc9f5,#a36aff);color:transparent;background-clip:text}.hero p{max-width:720px;color:#c4cde2;font-size:18px}
+.btn{display:inline-block;margin:12px 10px 0 0;padding:13px 20px;border-radius:13px;background:linear-gradient(100deg,var(--purple),var(--blue));font-weight:800}.btn.alt{background:#253656}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:16px;margin:28px 0}.card{padding:23px;border:1px solid var(--line);border-radius:19px;background:var(--panel)}.card h3{margin:6px 0}.muted{color:var(--muted)}section{margin-top:56px}footer{text-align:center;padding:35px;color:var(--muted);border-top:1px solid #1b2946}
+@media(max-width:650px){.nav{display:none}.hero{padding:25px}.hero h1{font-size:40px}main{padding:30px 16px}}
+</style></head><body>
+<header><div class="brand">▶ MovieShorts <b>Pro</b></div><nav class="nav"><a href="#features">Features</a><a href="#how">How it works</a><a href="#security">Privacy</a><a href="/admin">Admin</a></nav></header>
+<main><section class="hero"><div class="kicker">YOUR PERSONAL MOVIE CREATION STUDIO</div><h1>Turn full movies into<br><span class="gradient">90-second short clips.</span></h1>
+<p>Select a movie stored on your Android phone, give the project a name, and create sequential clips. Keep your original movie and exports on your device.</p>
+<a class="btn" href="#download">Get the Android app</a><a class="btn alt" href="#features">Explore features</a></section>
+<section id="features"><div class="kicker">BUILT FOR CREATORS</div><h2>Everything starts with your movie</h2><div class="grid">
+<div class="card"><h3>🎬 Sequential splitting</h3><p class="muted">Create clips of up to 90 seconds, including a shorter final clip.</p></div>
+<div class="card"><h3>📱 Device-first workflow</h3><p class="muted">Choose videos using Android's system file picker and save exports in app storage.</p></div>
+<div class="card"><h3>✂️ Clip management</h3><p class="muted">View the generated clips and open or share them from your phone.</p></div>
+<div class="card"><h3>🔐 Privacy-minded design</h3><p class="muted">Local processing avoids uploading source movies to a server in this starter build.</p></div>
+</div></section>
+<section id="how"><div class="kicker">SIMPLE WORKFLOW</div><h2>Choose · Split · Review · Share</h2><p class="muted">Create a named project, select a video, let the app export clips, then open or share each result.</p></section>
+<section id="security"><div class="kicker">TRANSPARENT BY DESIGN</div><h2>Current release status</h2><p class="muted">This source package is an early Android MVP. Account registration, cloud sync, advanced timeline editing, admin authentication, production hosting and Meta publishing are not enabled yet. Facebook publishing must use Meta's official authorization flow; the app will never ask users to type their Facebook password into MovieShorts Pro.</p></section>
+<section id="download"><div class="card"><div class="kicker">ANDROID RELEASE</div><h2>APK download</h2><p class="muted">The download will appear here after a successful GitHub Actions build and release. No production APK is attached to this source package.</p></div></section>
+</main><footer>© MovieShorts Pro · Product information and release status</footer></body></html>
