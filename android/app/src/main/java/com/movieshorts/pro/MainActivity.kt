@@ -8,6 +8,7 @@ import android.os.Environment
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -21,6 +22,7 @@ import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
@@ -48,6 +50,7 @@ class MainActivity : ComponentActivity() {
     private var currentSource: Uri? = null
     private var currentDurationMs = 0L
     private var nextClipIndex = 0
+    private var selectedClipDurationSeconds = 90
     private var projectOutputDir: File? = null
     private var activeTransformer: Transformer? = null
     private val clips = mutableStateListOf<ClipRecord>()
@@ -94,10 +97,23 @@ class MainActivity : ComponentActivity() {
             hint = "e.g. My Movie Project"
             setSingleLine(true)
         }
+        val durations = arrayOf("1 minute", "1.5 minutes", "2 minutes", "5 minutes")
+        val seconds = intArrayOf(60, 90, 120, 300)
+        val durationPicker = android.widget.Spinner(this).apply {
+            adapter = android.widget.ArrayAdapter(this@MainActivity, android.R.layout.simple_spinner_dropdown_item, durations)
+        }
+        val content = android.widget.LinearLayout(this).apply {
+            orientation = android.widget.LinearLayout.VERTICAL
+            setPadding(48, 8, 48, 0)
+            addView(input)
+            addView(android.widget.TextView(this@MainActivity).apply { text = "Choose clip duration" })
+            addView(durationPicker)
+            addView(android.widget.TextView(this@MainActivity).apply { text = "Project fee: 490 Coins once per new Movie Project, regardless of Shorts count."; setPadding(0,16,0,0) })
+        }
         android.app.AlertDialog.Builder(this)
-            .setTitle("Name your project")
-            .setMessage("Every movie is saved in its own project.")
-            .setView(input)
+            .setTitle("Create Movie Project")
+            .setMessage("Each movie has its own project. All Shorts from this movie are included in one 490-Coin project fee.")
+            .setView(content)
             .setNegativeButton("Cancel", null)
             .setPositiveButton("Choose movie") { _, _ ->
                 val name = input.text.toString().trim()
@@ -105,6 +121,7 @@ class MainActivity : ComponentActivity() {
                     status = "Please enter a project name."
                 } else {
                     pendingProjectName = name
+                    selectedClipDurationSeconds = seconds[durationPicker.selectedItemPosition]
                     moviePicker.launch(arrayOf("video/*"))
                 }
             }.show()
@@ -152,13 +169,13 @@ class MainActivity : ComponentActivity() {
     }
 
     private fun exportNextClip() {
-        val startMs = nextClipIndex * 90_000L
+        val startMs = nextClipIndex * selectedClipDurationSeconds * 1000L
         if (startMs >= currentDurationMs) {
             status = "Finished: ${clips.size} clips saved in Movies/MovieShortsPro."
             activeTransformer = null
             return
         }
-        val endMs = minOf(startMs + 90_000L, currentDurationMs)
+        val endMs = minOf(startMs + selectedClipDurationSeconds * 1000L, currentDurationMs)
         val out = File(projectOutputDir, "clip_${(nextClipIndex + 1).toString().padStart(4, '0')}.mp4")
         val source = currentSource ?: return
         val mediaItem = MediaItem.Builder()
@@ -244,9 +261,11 @@ fun MovieShortsApp(
             ) {
                 item {
                     Row(verticalAlignment = Alignment.CenterVertically) {
-                        Box(Modifier.size(48.dp).background(Brush.linearGradient(listOf(Purple, Blue)), RoundedCornerShape(15.dp)), contentAlignment = Alignment.Center) {
-                            Text("▶", color = Color.White, fontSize = 25.sp)
-                        }
+                        Image(
+                            painter = painterResource(id = R.drawable.ic_brand_mark),
+                            contentDescription = "MovieShorts Pro logo",
+                            modifier = Modifier.size(48.dp)
+                        )
                         Spacer(Modifier.width(12.dp))
                         Text("MovieShorts", fontSize = 23.sp, fontWeight = FontWeight.ExtraBold)
                         Text(" Pro", color = Cyan, fontSize = 23.sp, fontWeight = FontWeight.ExtraBold)
@@ -258,7 +277,7 @@ fun MovieShortsApp(
                         verticalArrangement = Arrangement.spacedBy(12.dp)
                     ) {
                         Text("YOUR PERSONAL MOVIE STUDIO", color = Cyan, fontSize = 12.sp, fontWeight = FontWeight.Bold)
-                        Text("Turn full movies into\n90-second shorts.", color = Color.White, fontSize = 29.sp, lineHeight = 34.sp, fontWeight = FontWeight.ExtraBold)
+                        Text("Turn full movies into\nvertical shorts.", color = Color.White, fontSize = 29.sp, lineHeight = 34.sp, fontWeight = FontWeight.ExtraBold)
                         Text("Select a movie from your phone, name the project and create sequential clips stored on this device.", color = Muted, fontSize = 15.sp, lineHeight = 22.sp)
                         Button(onClick = onUpload, colors = ButtonDefaults.buttonColors(containerColor = Purple), modifier = Modifier.fillMaxWidth().height(54.dp), shape = RoundedCornerShape(15.dp)) {
                             Text("＋  Upload your movie", fontSize = 16.sp, fontWeight = FontWeight.Bold)
@@ -289,7 +308,7 @@ fun MovieShortsApp(
                     item {
                         Column(Modifier.fillMaxWidth().background(Panel, RoundedCornerShape(18.dp)).padding(20.dp)) {
                             Text("Your clips will appear here", color = Color.White, fontSize = 20.sp, fontWeight = FontWeight.Bold)
-                            Text("Each clip is up to 1 minute 30 seconds. The final clip may be shorter.", color = Muted)
+                            Text("Choose 1, 1.5, 2 or 5 minutes for each new Movie Project. The final clip may be shorter.", color = Muted)
                         }
                     }
                 } else {
